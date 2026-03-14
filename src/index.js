@@ -1,8 +1,8 @@
 import "./styles.css";
 import createTodo from "../modules/todo";
-import createProject from "../modules/project";
+import Project from "../modules/project";
 
-const homeProject = createProject("Home");
+const homeProject = Project("Home");
 const todo1 = createTodo("Buy Groceries", "vegetables, essential food items", "2026-03-15", "High");
 const todo2 = createTodo("Complete odin project", "todo app project", "2026-03-15", "High");
 homeProject.addTodo(todo1.getData());

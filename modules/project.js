@@ -1,4 +1,4 @@
-export default function Project(name) {
+export default function project(name) {
     let todos = [];
 
     const addTodo = (todo) => todos.push(todo);

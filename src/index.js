@@ -1,11 +1,22 @@
+import { createProjects, getProjects } from "../modules/appController";
+import { renderProjects, renderTodos } from "../modules/ui";
+import todo from "../modules/todo";
 import "./styles.css";
-import createTodo from "../modules/todo";
-import Project from "../modules/project";
 
-const homeProject = Project("Home");
-const todo1 = createTodo("Buy Groceries", "vegetables, essential food items", "2026-03-15", "High");
-const todo2 = createTodo("Complete odin project", "todo app project", "2026-03-15", "High");
-homeProject.addTodo(todo1.getData());
-homeProject.addTodo(todo2.getData());
+createProjects("Home");
+createProjects("Personal");
+createProjects("Work");
 
-console.log(homeProject.name, homeProject.getTodos());
+renderProjects();
+
+const projects = getProjects();
+const todo1 = todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "High");
+
+
+projects[0].addTodo(todo1);
+projects[0].addTodo(todo1);
+projects[1].addTodo(todo1);
+projects[1].addTodo(todo1);
+projects[2].addTodo(todo1);
+projects[2].addTodo(todo1);
+renderTodos(projects[0]);

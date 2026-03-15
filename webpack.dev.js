@@ -7,4 +7,12 @@ export default merge(common, {
     devServer: {
         watchFiles: ['./src/restaurant.html'],
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"]
+            },
+        ],
+    },
 });

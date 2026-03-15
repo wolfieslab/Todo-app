@@ -1,0 +1,14 @@
+#app {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+}
+
+#projects {
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+#todos {
+    padding: 20px;
+}

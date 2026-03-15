@@ -1,5 +1,6 @@
 import { merge } from "webpack-merge";
 import common from './webpack.common.js';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export default merge(common, {
     mode: 'production',
@@ -7,4 +8,17 @@ export default merge(common, {
     output: {
         filename: 'main.js',
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
+            },
+        ]
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "styles.css"
+        })
+    ]
 });

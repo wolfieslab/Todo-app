@@ -24,6 +24,12 @@ export function renderTodos(project) {
     const list = document.getElementById("todos");
     list.innerHTML = "";
 
+    const heading = document.createElement("h2");
+    heading.classList.add("heading");
+    heading.textContent = project.name;
+
+    list.appendChild(heading);
+
     project.getTodos().forEach((todo, index) => {
         const item = document.createElement("div");
         item.classList.add("todo");

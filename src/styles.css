@@ -1,3 +1,11 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 #app {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -5,10 +13,23 @@
 }
 
 #projects {
+    display: flex;
+    flex-direction: column;
     background: #f4f4f4;
     padding: 20px;
 }
 
 #todos {
     padding: 20px;
+}
+
+#projects button {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0;
+}
+
+#projects button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }

@@ -1,9 +1,19 @@
-import Project from "../modules/project";
+import createProject from "./project";
+import Todo from "./todo";
 
-const projects = [];
+let projects = [];
+let activeProjectIndex = 0;
+
+const setActiveProject = (index) => {
+    activeProjectIndex = index;
+};
+
+const getActiveProject = () => {
+    return projects[activeProjectIndex];
+};
 
 const createProjects = (name) => {
-    const project = Project(name);
+    const project = createProject(name);
     projects.push(project);
 };
 
@@ -13,4 +23,17 @@ const deleteProject = (index) => {
 
 const getProjects = () => projects;
 
-export { createProjects, getProjects, deleteProject };
+const addTodoToActiveProject = (data) => {
+    const project = getActiveProject();
+    
+    const newTodo = Todo(
+        data.title,
+        data.description,
+        data.dueDate,
+        data.priority
+    );
+
+    project.addTodo(newTodo);
+};
+
+export { createProjects, getProjects, deleteProject, setActiveProject, getActiveProject, addTodoToActiveProject };

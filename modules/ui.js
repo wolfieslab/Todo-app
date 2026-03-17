@@ -1,4 +1,4 @@
-import { createProjects, getProjects, deleteProject } from "./appController";
+import { createProjects, getProjects, deleteProject, addTodoToActiveProject, getActiveProject } from "./appController";
 import project from "./project"
 import todo from "./todo";
 
@@ -53,6 +53,7 @@ export function renderProjects() {
         deleteBtn.addEventListener("click", () => {
             deleteProject(index);
             renderProjects();
+            renderTodos();
         });
 
 
@@ -68,13 +69,16 @@ export function renderProjects() {
     });
 
     addTaskBtn.addEventListener("click", () => {
-        openTaskModal(project.addTodo);
+        openTaskModal(addTodoToActiveProject);
     });
 }
 
-export function renderTodos(project) {
+export function renderTodos() {
     const list = document.getElementById("todos");
     list.innerHTML = "";
+
+    const project = getActiveProject();
+    const todos = project.getTodos();
 
     const heading = document.createElement("h2");
     heading.classList.add("title");
@@ -82,7 +86,7 @@ export function renderTodos(project) {
 
     list.appendChild(heading);
 
-    project.getTodos().forEach(todo => {
+    todos.forEach(todo => {
         const item = createTodoElement(todo);
         list.appendChild(item);
     });
@@ -193,7 +197,7 @@ function openProjectModal(createProjects) {
     modal.showModal();
 }
 
-function openTaskModal(project) {
+function openTaskModal(addTodoToActiveProject) {
     const modal = createModal({
         title: "Add Task",
         fields: [
@@ -203,8 +207,8 @@ function openTaskModal(project) {
             { name: "priority", type: "text", placeholder: "Priority (low/medium/high)"}
         ],
         onSubmit: (data) => {
-            console.log("Task: ", data);
-            project.getTodos();
+            addTodoToActiveProject(data);
+            renderTodos();
         }
     });
 

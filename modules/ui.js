@@ -45,7 +45,7 @@ export function renderProjects() {
         deleteBtn.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
         `;
-        
+
         div.dataset.index = index;
         div.append(span, deleteBtn);
 
@@ -61,10 +61,10 @@ export function renderProjects() {
         sidebar.appendChild(projectList);
     });
 
-    
 
 
-    addProjectBtn.addEventListener("click",() => {
+
+    addProjectBtn.addEventListener("click", () => {
         openProjectModal(createProjects);
     });
 
@@ -86,13 +86,13 @@ export function renderTodos() {
 
     list.appendChild(heading);
 
-    todos.forEach(todo => {
-        const item = createTodoElement(todo);
+    todos.forEach((todo, index) => {
+        const item = createTodoElement(todo, index);
         list.appendChild(item);
     });
 }
 
-function createTodoElement(todo) {
+function createTodoElement(todo, index) {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
 
@@ -109,16 +109,28 @@ function createTodoElement(todo) {
     const todoDetails = document.createElement("div");
     todoDetails.classList.add("todo-details");
 
-    todoDetails.innerHTML = `
-        <h4>${todo.getData().title}</h4>
-        <p>${todo.getData().description}</p>
-        <p>
-            <span>${todo.getData().dueDate}</span>
-            <span>Priority: ${todo.getData().priority}</span>
-        </p>
-        <button class="delete-todo-btn">Delete</button>
+    const title = document.createElement("h4");
+    title.textContent = todo.getData().title;
+
+    const desc = document.createElement("p");
+    desc.textContent = todo.getData().description;
+
+    const meta = document.createElement("p");
+    meta.innerHTML = `
+        <span>${todo.getData().dueDate}</span>
+        <span>Priority: ${todo.getData().priority}</span>
     `;
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-todo-btn");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+        const project = getActiveProject();
+        project.removeTodo(index);
+        renderTodos();
+    });
+
+    todoDetails.append(title, desc, meta, deleteBtn)
     todoDiv.append(todoCheckbox, todoDetails);
     return todoDiv;
 }
@@ -141,7 +153,7 @@ function createModal({ title, fields, onSubmit }) {
         input.name = field.name;
         input.placeholder = field.placeholder;
 
-        if(field.type !== "textarea") input.type = field.type;
+        if (field.type !== "textarea") input.type = field.type;
 
         form.appendChild(input);
     })
@@ -165,7 +177,7 @@ function createModal({ title, fields, onSubmit }) {
         e.preventDefault();
 
         const formData = new FormData(form);
-        const data =  Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(formData.entries());
         onSubmit(data);
 
         dialog.close();
@@ -203,8 +215,8 @@ function openTaskModal(addTodoToActiveProject) {
         fields: [
             { name: "title", type: "text", placeholder: "Title" },
             { name: "description", type: "textarea", placeholder: "Description" },
-            { name: "dueDate", type: "date"},
-            { name: "priority", type: "text", placeholder: "Priority (low/medium/high)"}
+            { name: "dueDate", type: "date" },
+            { name: "priority", type: "text", placeholder: "Priority (low/medium/high)" }
         ],
         onSubmit: (data) => {
             addTodoToActiveProject(data);

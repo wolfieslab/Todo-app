@@ -116,3 +116,46 @@ button.add-task-btn {
     fill: #4caf50;
 }
 
+dialog.modal {
+    margin: auto;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    width: 25%;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+form .dialog-heading {
+    font-size: 2em;
+}
+
+form input {
+    font-size: 20px;
+    margin: 10px 0;
+    border: none;
+    padding: 0 2px;
+}
+
+form input:focus-visible {
+    border: none;
+    outline: none;
+}
+
+.actions-button {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.actions-button button {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}

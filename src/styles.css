@@ -19,13 +19,6 @@
     padding: 20px;
 }
 
-#projects button {
-    border: none;
-    background: transparent;
-    text-align: start;
-    padding: 8px;
-}
-
 #projects button:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -55,17 +48,49 @@ div.logo {
 button.add-task-btn {
     display: flex;
     align-items: center;
+    background: transparent;
     gap: 8px;
     font-size: 14px;
+    border: none;
+    text-align: start;
+    padding: 8px;
 }
 
-#projects .heading .add-project-btn {
+.heading .add-project-btn {
+    border: none;
+    text-align: start;
+    background: transparent;
     padding: 0;
 }
 
 .add-project-btn svg {
     width: 20px;
     height: 20px;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+    padding-right: 1em;
+}
+
+.delete-project-btn {
+    border: none;
+    background: transparent;
+}
+
+.delete-project-btn svg {
+    width: 16px;
+    height: 16px;
+    transform: rotate(45deg);
 }
 
 #todos .title {

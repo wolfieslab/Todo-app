@@ -1,4 +1,4 @@
-import { createProjects, getProjects } from "./appController";
+import { createProjects, getProjects, deleteProject } from "./appController";
 import project from "./project"
 import todo from "./todo";
 
@@ -30,19 +30,37 @@ export function renderProjects() {
 
     sidebar.append(logo, addTaskBtn, heading);
 
+    const projectList = document.createElement("div");
+    projectList.classList.add("projects-list");
+
     getProjects().forEach((project, index) => {
         const div = document.createElement("div");
+        div.classList.add("project")
+
         const span = document.createElement("span");
         span.textContent = project.name;
 
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-project-btn")
+        deleteBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+        `;
         
         div.dataset.index = index;
         div.append(span, deleteBtn);
 
-        sidebar.appendChild(div);
+
+        deleteBtn.addEventListener("click", () => {
+            deleteProject(index);
+            renderProjects();
+        });
+
+
+        projectList.appendChild(div);
+        sidebar.appendChild(projectList);
     });
+
+    
 
 
     addProjectBtn.addEventListener("click",() => {

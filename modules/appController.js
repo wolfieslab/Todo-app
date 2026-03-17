@@ -7,6 +7,10 @@ const createProjects = (name) => {
     projects.push(project);
 };
 
+const deleteProject = (index) => {
+    projects.splice(index, 1);
+};
+
 const getProjects = () => projects;
 
-export { createProjects, getProjects };
+export { createProjects, getProjects, deleteProject };

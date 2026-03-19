@@ -9,8 +9,15 @@ const setActiveProject = (index) => {
 };
 
 const getActiveProject = () => {
+    if(projects.length === 0) return null;
+
+    if(activeProjectIndex >= projects.length) {
+        activeProjectIndex = projects.length - 1;
+    }
     return projects[activeProjectIndex];
 };
+
+const getActiveProjectIndex = () => activeProjectIndex;
 
 const createProjects = (name) => {
     const project = createProject(name);
@@ -36,4 +43,4 @@ const addTodoToActiveProject = (data) => {
     project.addTodo(newTodo);
 };
 
-export { createProjects, getProjects, deleteProject, setActiveProject, getActiveProject, addTodoToActiveProject };
+export { createProjects, getProjects, deleteProject, setActiveProject, getActiveProject, addTodoToActiveProject, getActiveProjectIndex };

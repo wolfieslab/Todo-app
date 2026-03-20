@@ -18,7 +18,7 @@ export function renderProjects() {
         div.dataset.index = index;
 
         const activeIndex = getActiveProjectIndex();
-        if(index === activeIndex) {
+        if (index === activeIndex) {
             div.classList.add("active");
         }
 
@@ -52,11 +52,21 @@ export function renderTodos() {
     const project = getActiveProject();
     const todos = project.getTodos();
 
-    const heading = document.createElement("h2");
-    heading.classList.add("title");
-    heading.textContent = project.name;
+    const header = document.createElement("div");
+    header.classList.add("main-header");
 
-    list.appendChild(heading);
+    const title = document.createElement("h2");
+    title.classList.add("title");
+    title.textContent = project.name;
+
+    const addBtn = document.createElement("button");
+    addBtn.classList.add("header-add-btn");
+    addBtn.textContent = "+ Add Task";
+
+    addBtn.addEventListener("click", () => openTaskModal(addTodoToActiveProject, renderTodos));
+
+    header.append(title, addBtn);
+    list.appendChild(header);
 
     todos.forEach((todo, index) => {
         const item = createTodoElement(todo, index);
@@ -85,7 +95,7 @@ function createSidebarElements(sidebarElement) {
     addProjectBtn.classList.add("add-project-btn");
     addProjectBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>`;
-    
+
     heading.append(headingText, addProjectBtn);
     addProjectBtn.addEventListener("click", () => { openProjectModal(createProjects, renderProjects) });
     addTaskBtn.addEventListener("click", () => { openTaskModal(addTodoToActiveProject, renderTodos) });
@@ -113,7 +123,7 @@ function createTodoElement(todo, index) {
 
     const content = document.createElement("div");
     content.classList.add("todo-content");
-    
+
     const todoRow = document.createElement("div");
     todoRow.classList.add("todo-header");
 

@@ -22,6 +22,12 @@
     gap: 8px;
 }
 
+#main-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
 #projects button:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -29,6 +35,8 @@
 #todos {
     padding: 5% 25%;
 }
+
+/* Project sidebar layout */
 
 div.logo {
     font-size: 2em;
@@ -60,7 +68,7 @@ button.add-task-btn {
     background: #6366f1;
     color: white;
     gap: 8px;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 14px;
     border: none;
     border-radius: 10px;
@@ -147,9 +155,29 @@ button.add-task-btn {
     transform: rotate(45deg);
 }
 
-#todos .title {
-    font-size: 32px;
-    margin-bottom: 24px;
+/* Main content layout */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-header .title {
+    font-size: 2.4em;
+    font-weight: 600;
+    color: rgb(206, 206, 206);
+}
+
+.header-add-btn {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* todo layout  */

@@ -9,8 +9,8 @@ createProjects("Work");
 
 
 const projects = getProjects();
-const todo1 = todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "High");
-const todo2 = todo("bike riding", "go on a ride on highway", "2026-03-15", "High");
+const todo1 = todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "high");
+const todo2 = todo("bike riding", "go on a ride on highway", "2026-03-15", "high");
 
 
 projects[0].addTodo(todo1);

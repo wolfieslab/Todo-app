@@ -43,4 +43,19 @@ const addTodoToActiveProject = (data) => {
     project.addTodo(newTodo);
 };
 
-export { createProjects, getProjects, deleteProject, setActiveProject, getActiveProject, addTodoToActiveProject, getActiveProjectIndex };
+const addTodoToProject = (projectIndex, data) => {
+    const project = projects.find(p => p.index == projectIndex);
+
+    if (!project) return;
+
+    const newTodo = Todo(
+        data.title,
+        data.description,
+        data.dueDate,
+        data.priority
+    );
+
+    project.addTodo(newTodo);
+}
+
+export { createProjects, getProjects, deleteProject, setActiveProject, getActiveProject, addTodoToActiveProject, addTodoToProject, getActiveProjectIndex };

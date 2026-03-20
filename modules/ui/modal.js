@@ -1,27 +1,57 @@
-function createModal({ title, fields, onSubmit }) {
+function createModal({ fields, submitBtn, onSubmit }) {
     const dialog = document.createElement("dialog");
     dialog.classList.add("modal");
 
     const form = document.createElement("form");
     form.method = "dialog";
 
-    const heading = document.createElement("h2");
-    heading.classList.add("dialog-heading");
-    heading.textContent = title;
+    let row = null;
 
-    form.appendChild(heading);
+    fields.forEach((field, index) => {
+        let input;
 
-    fields.forEach(field => {
-        const input = document.createElement(field.type === "textarea" ? "textarea" : "input");
+        const label = document.createElement("label");
+        label.classList.add("form-group");
+        label.textContent = field.label;
+
+        if (field.type === "textarea") {
+            input = document.createElement("textarea");
+        }
+        else if (field.type === "select") {
+            input = document.createElement("select");
+            const options = field.options;
+            options.forEach(level => {
+                const option = document.createElement("option");
+                option.value = level.value;
+                option.textContent = level.label;
+                input.appendChild(option);
+            });
+        }
+        else {
+            input = document.createElement("input");
+            input.type = field.type || "text";
+        }
+
         input.name = field.name;
-        input.placeholder = field.placeholder;
+        input.placeholder = field.placeholder || "";
 
-        if (field.type !== "textarea") input.type = field.type;
         if (field.value) input.value = field.value;
 
-        form.appendChild(input);
-    })
 
+        label.appendChild(input);
+        if (index >= fields.length - 2) {
+            if(!row) {
+                row = document.createElement("div");
+                row.classList.add("form-row");
+                form.appendChild(row);
+            }
+            row.appendChild(label);
+        }
+        else {
+            form.appendChild(label);
+        }
+    })
+    
     const actions = document.createElement("div");
     actions.classList.add("actions-button")
 
@@ -31,8 +61,8 @@ function createModal({ title, fields, onSubmit }) {
     cancelBtn.addEventListener("click", () => dialog.close());
 
     const addBtn = document.createElement("button");
-    addBtn.textContent = "Add"
-    addBtn.type = "submit"
+    addBtn.textContent = submitBtn.name;
+    addBtn.type = submitBtn.type;
 
     actions.append(cancelBtn, addBtn);
     form.appendChild(actions);
@@ -56,14 +86,18 @@ function createModal({ title, fields, onSubmit }) {
 
 export function openProjectModal(createProjects, renderProjects) {
     const modal = createModal({
-        title: "Add Project",
         fields: [
             {
                 name: "title",
                 type: "text",
-                placeholder: "Project Name"
+                placeholder: "ex: Work, Personal",
+                label: "Project Name"
             }
         ],
+        submitBtn: {
+            name: "Add Project",
+            type: "submit"
+        },
         onSubmit: (data) => {
             createProjects(data.title);
             renderProjects();
@@ -75,13 +109,26 @@ export function openProjectModal(createProjects, renderProjects) {
 
 export function openTaskModal(addTodoToActiveProject, renderTodos) {
     const modal = createModal({
-        title: "Add Task",
         fields: [
-            { name: "title", type: "text", placeholder: "Title" },
-            { name: "description", type: "textarea", placeholder: "Description" },
-            { name: "dueDate", type: "date" },
-            { name: "priority", type: "text", placeholder: "Priority (low/medium/high)" }
+            { name: "title", placeholder: "Morning Exercise", label: "Task" },
+            { name: "description", type: "textarea", placeholder: "Wake up at 6am and do 10 pushups", label: "Description" },
+            { name: "dueDate", type: "date", label: "Due Date" },
+            {
+                name: "priority",
+                type: "select",
+                placeholder: "Priority",
+                label: "Priority",
+                options: [
+                    { value: "low", label: "Low" },
+                    { value: "medium", label: "Medium" },
+                    { value: "high", label: "High" }
+                ]
+            }
         ],
+        submitBtn: {
+            name: "Add Task",
+            type: "submit"
+        },
         onSubmit: (data) => {
             addTodoToActiveProject(data);
             renderTodos();
@@ -97,11 +144,26 @@ export function editTaskModal(todoItem, renderTodos) {
     const modal = createModal({
         title: "Edit task",
         fields: [
-            { name: "title", placeholder: "Title", value: data.title },
-            { name: "description", placeholder: "Description", value: data.description },
-            { name: "dueDate", type: "date", value: data.dueDate },
-            { name: "priority", placeholder: "Priority", value: data.priority }
+            { name: "title", label: "Task", value: data.title, placeholder: "Morning Exercise" },
+            { name: "description", type: "textarea", label: "Description", value: data.description, placeholder: "Wake up at 6am and do 10 pushups" },
+            { name: "dueDate", type: "date", value: data.dueDate, label: "Due Date" },
+            {
+                name: "priority",
+                type: "select",
+                placeholder: "Priority",
+                value: data.priority,
+                label: "Priority",
+                options: [
+                    { value: "low", label: "Low" },
+                    { value: "medium", label: "Medium" },
+                    { value: "high", label: "High" }
+                ]
+            }
         ],
+        submitBtn: {
+            name: "Save",
+            type: "submit"
+        },
         onSubmit: (updatedData) => {
             todoItem.updateData(updatedData)
             renderTodos();

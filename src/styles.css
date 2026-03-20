@@ -188,31 +188,51 @@ button.add-task-btn {
     color: #313131;
 }
 
+/* modal layout */
+
 dialog.modal {
     margin: auto;
-    padding: 20px;
+    padding: 24px;
     border: none;
-    border-radius: 8px;
-    width: 25%;
+    border-radius: 12px;
+    width: 30%;
 }
 
 .modal form {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 form .dialog-heading {
     font-size: 2em;
 }
 
-form input {
-    font-size: 20px;
-    margin: 10px 0;
-    border: none;
-    padding: 0 2px;
+.form-row {
+    display: flex;
+    gap: 10px;
 }
 
-form input:focus-visible {
+.form-row .form-group {
+    flex: 1;
+}
+
+form label {
+    font-size: 24px;
+}
+
+form input,
+form textarea,
+form select {
+    font-size: 20px;
+    border: none;
+    padding: 0 2px;
+    width: 100%;
+    min-height: min-content;
+}
+
+form input:focus,
+form textarea:focus {
     border: none;
     outline: none;
 }
@@ -221,6 +241,7 @@ form input:focus-visible {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+    margin-top: 12px;
 }
 
 .actions-button button {
@@ -229,5 +250,6 @@ form input:focus-visible {
     border: none;
     background-color: black;
     color: white;
+    font-size: 14px;
     font-weight: bold;
 }

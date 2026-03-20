@@ -1,4 +1,4 @@
-function createModal({ fields, submitBtn, onSubmit }) {
+function createModal({title, fields, submitBtn, onSubmit }) {
     const dialog = document.createElement("dialog");
     dialog.classList.add("modal");
 
@@ -6,6 +6,13 @@ function createModal({ fields, submitBtn, onSubmit }) {
     form.method = "dialog";
 
     let row = null;
+
+    if(title !== "") {
+        const heading = document.createElement("h2");
+        heading.classList.add("modal-title");
+        heading.textContent = title;
+        form.appendChild(heading);
+    }
 
     fields.forEach((field, index) => {
         let input;
@@ -86,6 +93,7 @@ function createModal({ fields, submitBtn, onSubmit }) {
 
 export function openProjectModal(createProjects, renderProjects) {
     const modal = createModal({
+        title: "",
         fields: [
             {
                 name: "title",
@@ -109,6 +117,7 @@ export function openProjectModal(createProjects, renderProjects) {
 
 export function openTaskModal(addTodoToActiveProject, renderTodos) {
     const modal = createModal({
+        title: "Add Task",
         fields: [
             { name: "title", placeholder: "Morning Exercise", label: "Task" },
             { name: "description", type: "textarea", placeholder: "Wake up at 6am and do 10 pushups", label: "Description" },

@@ -287,6 +287,32 @@ button.add-task-btn {
     color: #ef4444;
 }
 
+.date {
+    padding: 2px 8px;
+    border-radius: 1em;
+    font-weight: 500;
+}
+
+.date.overdue {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.date.today {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.date.tomorrow {
+    background: rgba(99, 102, 241, 0.2);
+    color: #6366f1;
+}
+
+.date.normal {
+    background: rgba(148, 163, 184, 0.2);
+    color: #94a3b8;
+}
+
 .todo-actions-buttons {
     display: flex;
     gap: 6px;

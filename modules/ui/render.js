@@ -137,13 +137,28 @@ function createTodoElement(todo, index) {
     desc.textContent = data.description;
 
     let formattedDate;
+    let relativeTime = "";
+    let dateStatus = "";
 
     if (data.dueDate) {
         const date = new Date(data.dueDate);
-        if (isPast(date) && !isToday(date)) formattedDate = "Overdue";
-        else if (isToday(date)) formattedDate = "Today";
-        else if (isTomorrow(date)) formattedDate = "Tomorrow";
-        else formattedDate = format(date, "dd MMM");
+        if (isPast(date) && !isToday(date)) {
+            formattedDate = "Overdue";
+            dateStatus = "overdue";
+        }
+        else if (isToday(date)) {
+            formattedDate = "Today";
+            dateStatus = "today";
+        }
+        else if (isTomorrow(date)) {
+            formattedDate = "Tomorrow";
+            dateStatus = "tomorrow";
+        }
+        else {
+            formattedDate = format(date, "dd MMM");
+            dateStatus = "normal";
+        }
+        relativeTime = formatDistanceToNow(date, {addSuffix: true});
     }
     else {
         formattedDate = "No due date";
@@ -152,7 +167,7 @@ function createTodoElement(todo, index) {
     const meta = document.createElement("p");
     meta.classList.add("todo-meta");
     meta.innerHTML = `
-        <span class="due-date">Date: ${formattedDate}</span>
+        <span class="date ${dateStatus}">Date: ${formattedDate} (${relativeTime})</span>
         <span class="priority ${data.priority}">Priority: ${data.priority}</span>
     `;
 

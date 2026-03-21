@@ -1,5 +1,6 @@
 import { createProjects, getProjects, deleteProject, addTodoToActiveProject, getActiveProject, setActiveProject, getActiveProjectIndex } from "../appController";
 import project from "../project";
+import { format, isToday, isTomorrow, isPast, formatDistanceToNow } from "date-fns";
 import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching } from "./handlers";
 import { editTaskModal, openProjectModal, openTaskModal } from "./modal";
 
@@ -135,10 +136,23 @@ function createTodoElement(todo, index) {
     desc.classList.add("todo-desc");
     desc.textContent = data.description;
 
+    let formattedDate;
+
+    if (data.dueDate) {
+        const date = new Date(data.dueDate);
+        if (isPast(date) && !isToday(date)) formattedDate = "Overdue";
+        else if (isToday(date)) formattedDate = "Today";
+        else if (isTomorrow(date)) formattedDate = "Tomorrow";
+        else formattedDate = format(date, "dd MMM");
+    }
+    else {
+        formattedDate = "No due date";
+    }
+
     const meta = document.createElement("p");
     meta.classList.add("todo-meta");
     meta.innerHTML = `
-        <span>Date: ${data.dueDate}</span>
+        <span class="due-date">Date: ${formattedDate}</span>
         <span class="priority ${data.priority}">Priority: ${data.priority}</span>
     `;
 

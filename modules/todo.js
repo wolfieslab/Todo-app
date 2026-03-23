@@ -1,5 +1,5 @@
-export default function todo(title, description, dueDate, priority) {
-    let completed = false;
+export default function todo(title, description, dueDate, priority, initialCompleted = false) {
+    let completed = initialCompleted;
 
     const toggleComplete = () => {
         completed = !completed;
@@ -14,7 +14,7 @@ export default function todo(title, description, dueDate, priority) {
 
     const getData = () => {
         return {
-            title, description, dueDate, priority, completed
+            title, description, dueDate, priority, completed,
         };
     };
 

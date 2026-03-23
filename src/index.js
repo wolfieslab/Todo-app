@@ -1,23 +1,36 @@
-import { createProjects, getProjects } from "../modules/appController";
+import { createProjects, getActiveProject, getActiveProjectIndex, getProjects, setProjectsState } from "../modules/appController";
 import { renderProjects, renderTodos } from "../modules/ui/render";
-import todo from "../modules/todo";
+import Todo from "../modules/todo";
 import "./styles.css";
-
-createProjects("Home");
-createProjects("Personal");
-createProjects("Work");
+import { loadAppState, saveAppState } from "../modules/storage";
 
 
-const projects = getProjects();
-const todo1 = todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "high");
-const todo2 = todo("bike riding", "go on a ride on highway", "2026-03-15", "high");
+function seedDefaultProjects() {
+    createProjects("Home");
+    createProjects("Personal");
+    createProjects("Work");
 
+    const projects = getProjects();
 
-projects[0].addTodo(todo1);
-projects[0].addTodo(todo2);
-projects[1].addTodo(todo1);
-projects[1].addTodo(todo2);
-projects[2].addTodo(todo1);
-projects[2].addTodo(todo2);
+    projects[0].addTodo(Todo("bike riding", "go on a ride on highway", "2026-03-15", "high"));
+    projects[0].addTodo(Todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "high"));
+    projects[1].addTodo(Todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "high"));
+    projects[1].addTodo(Todo("bike riding", "go on a ride on highway", "2026-03-15", "high"));
+    projects[2].addTodo(Todo("Buy Groceries", "Food items, vegetables and snacks", "2026-03-15", "high"));
+    projects[2].addTodo(Todo("bike riding", "go on a ride on highway", "2026-03-15", "high"));
+}
+
+const savedState = loadAppState();
+
+if(savedState) {
+    setProjectsState(savedState.projects, savedState.activeProjectIndex);
+}
+else {
+    seedDefaultProjects();
+    saveAppState(getProjects(), getActiveProjectIndex());
+}
+
 renderProjects();
-renderTodos(projects[0]);
+if (getActiveProject()) {
+    renderTodos();
+}

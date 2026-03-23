@@ -1,3 +1,6 @@
+import { getProjects, getActiveProjectIndex } from "../appController";
+import { saveAppState } from "../storage";
+
 function createModal({title, fields, submitBtn, onSubmit }) {
     const dialog = document.createElement("dialog");
     dialog.classList.add("modal");
@@ -44,7 +47,6 @@ function createModal({title, fields, submitBtn, onSubmit }) {
 
         if (field.value) input.value = field.value;
 
-
         label.appendChild(input);
         if (index >= fields.length - 2) {
             if(!row) {
@@ -57,13 +59,13 @@ function createModal({title, fields, submitBtn, onSubmit }) {
         else {
             form.appendChild(label);
         }
-    })
+    });
     
     const actions = document.createElement("div");
-    actions.classList.add("actions-button")
+    actions.classList.add("actions-button");
 
     const cancelBtn = document.createElement("button");
-    cancelBtn.textContent = "Cancel"
+    cancelBtn.textContent = "Cancel";
     cancelBtn.type = "button";
     cancelBtn.addEventListener("click", () => dialog.close());
 
@@ -80,6 +82,7 @@ function createModal({title, fields, submitBtn, onSubmit }) {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         onSubmit(data);
+        saveAppState(getProjects(), getActiveProjectIndex());
 
         dialog.close();
         dialog.remove();
@@ -174,7 +177,7 @@ export function editTaskModal(todoItem, renderTodos) {
             type: "submit"
         },
         onSubmit: (updatedData) => {
-            todoItem.updateData(updatedData)
+            todoItem.updateData(updatedData);
             renderTodos();
         }
     });

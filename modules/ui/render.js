@@ -1,5 +1,4 @@
-import { createProjects, getProjects, deleteProject, addTodoToActiveProject, getActiveProject, setActiveProject, getActiveProjectIndex } from "../appController";
-import project from "../project";
+import { createProjects, getProjects, addTodoToActiveProject, getActiveProject, getActiveProjectIndex } from "../appController";
 import { format, isToday, isTomorrow, isPast, formatDistanceToNow } from "date-fns";
 import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching } from "./handlers";
 import { editTaskModal, openProjectModal, openTaskModal } from "./modal";

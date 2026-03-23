@@ -1,7 +1,8 @@
-import { createProjects, getProjects, addTodoToActiveProject, getActiveProject, getActiveProjectIndex } from "../appController";
+import { createProjects, getProjects, addTodoToActiveProject, getActiveProject, getActiveProjectIndex, toggleTodoComplete } from "../appController";
 import { format, isToday, isTomorrow, isPast, formatDistanceToNow } from "date-fns";
-import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching } from "./handlers";
+import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching, handleTaskToggle } from "./handlers";
 import { editTaskModal, openProjectModal, openTaskModal } from "./modal";
+import { saveAppState } from "../storage";
 
 export function renderProjects() {
     const sidebar = document.getElementById("projects");
@@ -15,7 +16,7 @@ export function renderProjects() {
     getProjects().forEach((project, index) => {
         const div = document.createElement("div");
         div.classList.add("project")
-        div.dataset.index = index;
+        div.dataset.projectIndex = index;
 
         const activeIndex = getActiveProjectIndex();
         if (index === activeIndex) {
@@ -108,18 +109,24 @@ function createTodoElement(todo, index) {
 
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
-    todoDiv.dataset.index = index;
+    todoDiv.dataset.todoIndex = index;
 
     const todoCheckbox = document.createElement("label");
     todoCheckbox.classList.add("todo-checkbox");
 
-    todoCheckbox.innerHTML = `
-            <input type="checkbox">
-            <span class="checkmark">
-                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check</title><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>
-            </span>
-        `;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = todo.getData().completed;
 
+    checkbox.addEventListener("change", () => { handleTaskToggle(index) });
+
+    const checkmarkIcon = document.createElement("span");
+    checkmarkIcon.classList.add("checkmark");
+    checkmarkIcon.innerHTML = `
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check</title><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>
+    `;
+
+    todoCheckbox.append(checkbox, checkmarkIcon);
 
     const content = document.createElement("div");
     content.classList.add("todo-content");

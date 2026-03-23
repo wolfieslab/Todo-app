@@ -65,6 +65,18 @@ const addTodoToProject = (projectIndex, data) => {
     project.addTodo(newTodo);
 }
 
+const toggleTodoComplete = (projectIndex, todoIndex) => {
+    const project = projects[projectIndex];
+
+    if(!project) return;
+
+    const todo = project.getTodos()[todoIndex];
+
+    if(!todo) return;
+
+    todo.toggleComplete();
+}
+
 export { 
     createProjects, 
     getProjects, 
@@ -75,4 +87,5 @@ export {
     addTodoToProject, 
     getActiveProjectIndex,
     setProjectsState,
+    toggleTodoComplete,
 };

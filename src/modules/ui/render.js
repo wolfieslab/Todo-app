@@ -1,8 +1,7 @@
-import { createProjects, getProjects, addTodoToProject, getActiveProject, getActiveProjectIndex, toggleTodoComplete } from "../appController";
+import { createProjects, getProjects, addTodoToProject, getActiveProject, getActiveProjectIndex, addTodoToActiveProject } from "../appController";
 import { format, isToday, isTomorrow, isPast, formatDistanceToNow } from "date-fns";
 import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching, handleTaskToggle } from "./handlers";
 import { editTaskModal, openProjectModal, openTaskModal } from "./modal";
-import { saveAppState } from "../storage";
 
 export function renderProjects() {
     const sidebar = document.getElementById("projects");

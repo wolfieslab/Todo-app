@@ -1,8 +1,8 @@
-import { createProjects, getActiveProject, getActiveProjectIndex, getProjects, setProjectsState } from "../modules/appController";
-import { renderProjects, renderTodos } from "../modules/ui/render";
-import Todo from "../modules/todo";
+import { createProjects, getActiveProject, getActiveProjectIndex, getProjects, setProjectsState } from "./modules/appController";
+import { renderProjects, renderTodos } from "./modules/ui/render";
+import Todo from "./modules/todo";
 import "./styles.css";
-import { loadAppState, saveAppState } from "../modules/storage";
+import { loadAppState, saveAppState } from "./modules/storage";
 
 
 function seedDefaultProjects() {

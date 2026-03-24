@@ -48,7 +48,7 @@ function createModal({title, fields, submitBtn, onSubmit }) {
         if (field.value) input.value = field.value;
 
         label.appendChild(input);
-        if (index >= fields.length - 2) {
+        if (field.row) {
             if(!row) {
                 row = document.createElement("div");
                 row.classList.add("form-row");
@@ -57,6 +57,7 @@ function createModal({title, fields, submitBtn, onSubmit }) {
             row.appendChild(label);
         }
         else {
+            row = null;
             form.appendChild(label);
         }
     });
@@ -118,31 +119,47 @@ export function openProjectModal(createProjects, renderProjects) {
     modal.showModal();
 }
 
-export function openTaskModal(addTodoToActiveProject, renderTodos) {
+export function openTaskModal(addTodoToProject, renderTodos) {
+    const projects = getProjects();
+
+    const projectsOptions = projects.map((project, index) => ({
+        value: index,
+        label: project.name,
+    }));
+
     const modal = createModal({
         title: "Add Task",
         fields: [
             { name: "title", placeholder: "Morning Exercise", label: "Task" },
             { name: "description", type: "textarea", placeholder: "Wake up at 6am and do 10 pushups", label: "Description" },
-            { name: "dueDate", type: "date", label: "Due Date" },
+            { name: "dueDate", type: "date", label: "Due Date", row: true, },
             {
                 name: "priority",
                 type: "select",
-                placeholder: "Priority",
+                row: true,
                 label: "Priority",
                 options: [
                     { value: "low", label: "Low" },
                     { value: "medium", label: "Medium" },
                     { value: "high", label: "High" }
                 ]
-            }
+            },
+            {
+                name: "projectIndex",
+                type: "select",
+                label: "Project",
+                options: projectsOptions,
+                value: getActiveProjectIndex(),
+            },
         ],
         submitBtn: {
             name: "Add Task",
             type: "submit"
         },
         onSubmit: (data) => {
-            addTodoToActiveProject(data);
+            const projectIndex = Number(data.projectIndex);
+            delete data.projectIndex;
+            addTodoToProject(projectIndex, data);
             renderTodos();
         }
     });
@@ -150,19 +167,26 @@ export function openTaskModal(addTodoToActiveProject, renderTodos) {
     modal.showModal();
 }
 
-export function editTaskModal(todoItem, renderTodos) {
+export function editTaskModal(todoItem, projectIndex, todoIndex, renderTodos) {
     const data = todoItem.getData();
+
+    const projects = getProjects();
+
+    const projectsOptions = projects.map((project, index) => ({
+        value: index,
+        label: project.name,
+    }));
 
     const modal = createModal({
         title: "Edit task",
         fields: [
             { name: "title", label: "Task", value: data.title, placeholder: "Morning Exercise" },
             { name: "description", type: "textarea", label: "Description", value: data.description, placeholder: "Wake up at 6am and do 10 pushups" },
-            { name: "dueDate", type: "date", value: data.dueDate, label: "Due Date" },
+            { name: "dueDate", type: "date", value: data.dueDate, label: "Due Date", row: true, },
             {
                 name: "priority",
                 type: "select",
-                placeholder: "Priority",
+                row: true,
                 value: data.priority,
                 label: "Priority",
                 options: [
@@ -170,14 +194,33 @@ export function editTaskModal(todoItem, renderTodos) {
                     { value: "medium", label: "Medium" },
                     { value: "high", label: "High" }
                 ]
-            }
+            },
+            {
+                name: "projectIndex",
+                type: "select",
+                label: "Project",
+                options: projectsOptions,
+                value: projectIndex,
+            },
         ],
         submitBtn: {
             name: "Save",
             type: "submit"
         },
         onSubmit: (updatedData) => {
+            const newProjectIndex = Number(updatedData.projectIndex);
+
+            delete updatedData.projectIndex;
+
             todoItem.updateData(updatedData);
+
+            if (newProjectIndex !== projectIndex) {
+                const projects = getProjects();
+
+                projects[projectIndex].removeTodo(todoIndex);
+                projects[newProjectIndex].addTodo(todoItem);
+            }
+
             renderTodos();
         }
     });

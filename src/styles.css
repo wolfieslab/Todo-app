@@ -419,6 +419,13 @@ dialog::backdrop {
     color: #64748b;
 }
 
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+}
+
 .actions-button {
     display: flex;
     justify-content: flex-end;

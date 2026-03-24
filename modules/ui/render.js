@@ -1,4 +1,4 @@
-import { createProjects, getProjects, addTodoToActiveProject, getActiveProject, getActiveProjectIndex, toggleTodoComplete } from "../appController";
+import { createProjects, getProjects, addTodoToProject, getActiveProject, getActiveProjectIndex, toggleTodoComplete } from "../appController";
 import { format, isToday, isTomorrow, isPast, formatDistanceToNow } from "date-fns";
 import { handleDeleteProject, handleDeleteTodo, handleProjectSwitching, handleTaskToggle } from "./handlers";
 import { editTaskModal, openProjectModal, openTaskModal } from "./modal";
@@ -64,7 +64,7 @@ export function renderTodos() {
     addBtn.classList.add("header-add-btn");
     addBtn.textContent = "+ Add Task";
 
-    addBtn.addEventListener("click", () => openTaskModal(addTodoToActiveProject, renderTodos));
+    addBtn.addEventListener("click", () => openTaskModal(addTodoToProject, renderTodos));
 
     header.append(title, addBtn);
     list.appendChild(header);
@@ -183,7 +183,12 @@ function createTodoElement(todo, index) {
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit-todo-btn");
     editBtn.textContent = "Edit";
-    editBtn.addEventListener("click", () => { editTaskModal(todo, renderTodos) });
+    editBtn.addEventListener("click", () => { 
+        const projectIndex = getActiveProjectIndex();
+        const todoIndex = index;
+        
+        editTaskModal(todo, projectIndex, todoIndex, renderTodos); 
+    });
 
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-todo-btn");

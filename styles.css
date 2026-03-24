@@ -1,0 +1,474 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    background: #020617;
+}
+
+#projects {
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border-right: 1px solid #1e293b;
+    padding: 20px;
+    gap: 8px;
+}
+
+#main-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+#projects button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#todos {
+    padding: 5% 25%;
+}
+
+/* Project sidebar layout */
+
+div.logo {
+    font-size: 2em;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+
+#projects .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.heading-text {
+    color: #94a3b8;
+    font-size: 1em;
+}
+
+.add-task-btn svg {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+}
+
+button.add-task-btn {
+    display: flex;
+    align-items: center;
+    background: #6366f1;
+    color: white;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    text-align: start;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.add-task-btn:hover {
+    opacity: 0.9;
+}
+
+.add-project-btn {
+    border: none;
+    background: transparent;
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-project-btn:hover {
+    background: #1e293b;
+}
+
+.add-project-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #94a3b8;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-icon {
+    width: 1em;
+    height: 1em;
+    fill: #e2e8f0;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #e2e8f0;
+    transition: 0.2s;
+}
+
+.project span {
+    display: flex;
+    gap: 8px;
+}
+
+.project:hover {
+    background: #1e293b;
+}
+
+.project.active {
+    background: #1e293b;
+    border-left: 3px solid #6366f1;
+}
+
+.delete-project-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.project:hover .delete-project-btn {
+    opacity: 1;
+}
+
+.delete-project-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #ef4444;
+    transform: rotate(45deg);
+}
+
+/* Main content layout */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-header .title {
+    font-size: 2.4em;
+    font-weight: 600;
+    color: rgb(206, 206, 206);
+}
+
+.header-add-btn {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* todo layout  */
+
+.todo {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    transition: 0.2s;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+
+.todo:hover {
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+
+.todo-checkbox {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.todo-checkbox input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #64748b;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkmark .icon {
+    width: 14px;
+    height: 14px;
+    fill: white;
+    display: none;
+}
+
+.todo-checkbox input:checked + .checkmark {
+    background: #6366f1;
+    border-color: #6366f1;
+}
+
+.todo-checkbox input:checked + .checkmark .icon {
+    display: block;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-header .todo-title {
+    font-size: 1em;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.todo-desc {
+    font-size: 0.9em;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.todo-meta {
+    display: flex;
+    gap: 0.8em;
+    font-size: 0.8em;
+    color: #64748b;
+}
+
+.priority {
+    padding: 2px 8px;
+    border-radius: 1em;
+    font-weight: 500;
+}
+
+.priority.low {
+    background: rgba(34,197,94,0.2);
+    color: #22c55e;
+}
+
+.priority.medium {
+    background: rgba(234,179,8,0.2);
+    color: #eab308;
+}
+
+.priority.high {
+    background: rgba(239,68,68,0.2);
+    color: #ef4444;
+}
+
+.date {
+    padding: 2px 8px;
+    border-radius: 1em;
+    font-weight: 500;
+}
+
+.date.overdue {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.date.today {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.date.tomorrow {
+    background: rgba(99, 102, 241, 0.2);
+    color: #6366f1;
+}
+
+.date.normal {
+    background: rgba(148, 163, 184, 0.2);
+    color: #94a3b8;
+}
+
+.todo-actions-buttons {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.todo:hover .todo-actions-buttons {
+    opacity: 1;
+}
+
+.todo-actions-buttons button {
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-todo-btn {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.delete-todo-btn {
+    background: #ef4444;
+    color: white;
+}
+
+/* modal layout */
+
+dialog.modal {
+    margin: auto;
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+    width: 30%;
+    background: #1e293b;
+    color: #e2e8f0;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    animation: scaleIn 0.2s ease;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-title {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    font-size: 1.1em;
+    color: #e2e8f0;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #6366f1;
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+::placeholder {
+    color: #64748b;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+}
+
+.actions-button {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.actions-button button {
+    font-weight: bold;
+}
+
+.actions-button button:first-child {
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid #334451;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.actions-button button:last-child {
+    background: #6366f1;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+}
+
+.actions-button button:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+
+
+@keyframes scaleIn {
+    from{
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*# sourceMappingURL=styles.css.map*/

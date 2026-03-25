@@ -1,91 +1,91 @@
-import createProject from "./project";
-import Todo from "./todo";
+import createProject from './project';
+import Todo from './todo';
 
 let projects = [];
 let activeProjectIndex = 0;
 
 const setProjectsState = (nextProjects = [], nextActiveProjectIndex = 0) => {
-    projects = nextProjects;
-    activeProjectIndex = nextActiveProjectIndex;
+  projects = nextProjects;
+  activeProjectIndex = nextActiveProjectIndex;
 };
 
 const setActiveProject = (index) => {
-    activeProjectIndex = index;
+  activeProjectIndex = index;
 };
 
 const getActiveProject = () => {
-    if(projects.length === 0) return null;
+  if (projects.length === 0) return null;
 
-    if(activeProjectIndex >= projects.length) {
-        activeProjectIndex = projects.length - 1;
-    }
-    return projects[activeProjectIndex];
+  if (activeProjectIndex >= projects.length) {
+    activeProjectIndex = projects.length - 1;
+  }
+  return projects[activeProjectIndex];
 };
 
 const getActiveProjectIndex = () => activeProjectIndex;
 
 const createProjects = (name) => {
-    const project = createProject(name);
-    projects.push(project);
+  const project = createProject(name);
+  projects.push(project);
 };
 
 const deleteProject = (index) => {
-    projects.splice(index, 1);
+  projects.splice(index, 1);
 };
 
 const getProjects = () => projects;
 
 const addTodoToActiveProject = (data) => {
-    const project = getActiveProject();
-    
-    if(!project) return;
+  const project = getActiveProject();
 
-    const newTodo = Todo(
-        data.title,
-        data.description,
-        data.dueDate,
-        data.priority,
-    );
+  if (!project) return;
 
-    project.addTodo(newTodo);
+  const newTodo = Todo(
+    data.title,
+    data.description,
+    data.dueDate,
+    data.priority,
+  );
+
+  project.addTodo(newTodo);
 };
 
 const addTodoToProject = (projectIndex, data) => {
-    const project = projects[projectIndex];
+  const project = projects[projectIndex];
 
-    if (!project) return;
+  if (!project) return;
 
-    const newTodo = Todo(
-        data.title,
-        data.description,
-        data.dueDate,
-        data.priority
-    );
+  const newTodo = Todo(
+    data.title,
+    data.description,
+    data.dueDate,
+    data.priority,
+  );
 
-    project.addTodo(newTodo);
-}
+  project.addTodo(newTodo);
+};
 
 const toggleTodoComplete = (projectIndex, todoIndex) => {
-    const project = projects[projectIndex];
+  const project = projects[projectIndex];
 
-    if(!project) return;
+  if (!project) return;
 
-    const todo = project.getTodos()[todoIndex];
+  const todo = project.getTodos()[todoIndex];
 
-    if(!todo) return;
+  if (!todo) return;
 
-    todo.toggleComplete();
-}
+  todo.toggleComplete();
+};
 
-export { 
-    createProjects, 
-    getProjects, 
-    deleteProject, 
-    setActiveProject, 
-    getActiveProject, 
-    addTodoToActiveProject, 
-    addTodoToProject, 
-    getActiveProjectIndex,
-    setProjectsState,
-    toggleTodoComplete,
+export {
+  createProjects,
+  getProjects,
+  deleteProject,
+  setActiveProject,
+  getActiveProject,
+  addTodoToActiveProject,
+  addTodoToProject,
+  getActiveProjectIndex,
+  setProjectsState,
+  toggleTodoComplete,
 };

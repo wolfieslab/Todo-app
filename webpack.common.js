@@ -6,18 +6,18 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 // const __dirname = path.dirname(__filename);
 
 export default {
-    entry: {
-        app: './src/index.js',
-    },
+  entry: {
+    app: './src/index.js',
+  },
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-        }),
-    ],
-    output: {
-        filename: 'main.js',
-        path: path.resolve(import.meta.dirname, 'dist'),
-        clean: true,
-    },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+  ],
+  output: {
+    filename: 'main.js',
+    path: path.resolve(import.meta.dirname, 'dist'),
+    clean: true,
+  },
 };

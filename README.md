@@ -1,4 +1,4 @@
-# Todo App 
+# Todo App
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 ![CSS](https://img.shields.io/badge/CSS-3-blue)
@@ -27,40 +27,49 @@ Try the app here:
 ## Screenshots
 
 ### Main Dashboard
+
 ![Todo App Screenshot](./src/resources/screenshots/Todo-app.png)
 
 ## Features
 
 ### Project Management
+
 - Create multiple projects to organize tasks
 - Switch between projects from the sidebar
 - Delete projects when they are no longer needed
 
 ### Task Management
+
 - Add tasks with title and description
 - Edit existing tasks
 - Delete tasks
 - Mark tasks as completed with a checkbox
 
 ### Task Details
+
 Each task supports:
+
 - Due date selection
 - Priority levels (Low, Medium, High)
 - Description field for additional notes
 - Assignment to specific projects
 
 ### Smart Date Handling
+
 The app uses **date-fns** to display helpful due date information:
+
 - Shows **Today** for tasks due today
 - Shows **Tomorrow** for upcoming tasks
 - Marks **Overdue** tasks automatically
-- Displays relative time (e.g., *in 3 days*, *2 days ago*)
+- Displays relative time (e.g., _in 3 days_, _2 days ago_)
 
 ### Persistent Storage
+
 - Application state is automatically saved using **Local Storage**
 - Tasks and projects remain available after refreshing the page
 
 ### Modular Architecture
+
 The application follows a modular structure for maintainability:
 
 - **Models** → Todo and Project data structures
@@ -70,7 +79,6 @@ The application follows a modular structure for maintainability:
 
 This separation improves scalability and code readability.
 
-
 ## Technologies Used
 
 - **JavaScript (ES6 Modules)**
@@ -79,12 +87,11 @@ This separation improves scalability and code readability.
 - **date-fns** (for date formatting and relative time)
 - **Local Storage API**
 
-
 ## Project Structure
 
 ```
 src/
-│ 
+│
 ├── index.js
 ├── index.html
 ├── styles.css
@@ -100,8 +107,7 @@ src/
 ├── resources/
 │ ├── screenshots/
 │  └── Todo-app.png
-``` 
-
+```
 
 ### Architecture
 
@@ -122,7 +128,6 @@ The app follows a **modular architecture**:
   - `handlers.js` → event handlers
   - `modal.js` → modal forms for adding/editing tasks
 
-
 ## How It Works
 
 1. Projects contain multiple todos.
@@ -138,6 +143,7 @@ The app follows a **modular architecture**:
 4. On page reload, the app restores the saved state.
 
 ## Prerequisites:
+
 - Node.js
 - npm
 
@@ -145,37 +151,42 @@ The app follows a **modular architecture**:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/wolfieslab/Todo-app.git
-    ```
+   ```bash
+   git clone https://github.com/wolfieslab/Todo-app.git
+   ```
 
 2. Navigate to the project folder:
 
-    ```bash
-    cd Todo-app
-    ```
+   ```bash
+   cd Todo-app
+   ```
+
 3. Install dependencies:
 
-    This project uses date-fns for date formatting.
+   This project uses date-fns for date formatting.
 
-    ```
-    npm install
-    ```
+   ```
+   npm install
+   ```
 
 4. Run the development server:
 
-    If you are using a bundler like webpack or a dev server:
-    ```
-    npm start
-    ```
-5. Open in browser: 
+   If you are using a bundler like webpack or a dev server:
 
-    Visit:
-    ```
-    http://localhost:8080
-    ```
+   ```
+   npm start
+   ```
+
+5. Open in browser:
+
+   Visit:
+
+   ```
+   http://localhost:8080
+   ```
 
 ## Future Improvements
+
 - Task filtering (All / Today / Completed)
 - Drag and drop tasks
 - Mobile responsiveness
@@ -183,33 +194,38 @@ The app follows a **modular architecture**:
 - Task search
 - Notifications for due tasks
 
-
 ## Key Learning Outcomes
 
 While building this project, I practiced several important frontend development concepts:
 
 ### Modular JavaScript Architecture
+
 - Organized the application using ES6 modules
 - Separated concerns into **models, controller, storage, and UI modules**
 - Improved maintainability and scalability of the codebase
 
 ### State Management
+
 - Managed application state using a central **app controller**
 - Ensured UI updates correctly when state changes
 
 ### DOM Manipulation
+
 - Dynamically created and updated UI elements
 - Implemented event-driven interactions for tasks and projects
 
 ### Data Persistence
+
 - Implemented **localStorage** to save and restore the application state
 - Ensured tasks and projects persist across browser sessions
 
 ### Working with External Libraries
+
 - Used **date-fns** for date formatting and relative time calculations
 - Implemented logic for detecting **today, tomorrow, and overdue tasks**
 
 ### UI Component Design
+
 - Built reusable UI components such as:
   - Modal forms
   - Task rendering components
